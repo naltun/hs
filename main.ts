@@ -6,17 +6,17 @@ interface Status {
   text: string;
 }
 
-const printHelp = () =>
+function helpAndExit(exitCode: number): void {
   console.log("usage: hs [-h|--help] <HTTP status: number>");
+  Deno.exit(exitCode);
+}
 
 function parseUserArg(): number {
   if (Deno.args[0] === "-h" || Deno.args[0] === "--help") {
-    printHelp();
-    Deno.exit(0);
+    helpAndExit(0);
   }
   if (!parseInt(Deno.args[0])) {
-    printHelp();
-    Deno.exit(1);
+    helpAndExit(1);
   }
   return Deno.args[0];
 }
