@@ -4,7 +4,6 @@ interface Status {
   code: number;
   title: string;
   text: string;
-  links: Array<string>;
 }
 
 const printHelp = () =>
