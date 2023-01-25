@@ -18,7 +18,13 @@ function showStatusCodes(): void {
   for (const statfile of Deno.readDirSync("./codes/")) {
     codes[statfile.name[0]].push(statfile.name.replace(".txt", ""));
   }
-  const table = Object.values(codes).map((arr) => arr.join(" ")).join("\n")
+  const table = Object.values(codes).map((c) => c.join(" ")).join("\n");
+  console.log(bold("HTTP Status Codes") + "\n");
+  console.log(
+    green(
+      "1xx Informational | 2xx Success | 3xx Redirection | 4xx Client Error | 5xx Server Error\n",
+    ),
+  );
   console.log(green(table));
 }
 
