@@ -7,13 +7,27 @@ interface Status {
 }
 
 function helpAndExit(exitCode: number): void {
-  console.log("usage: hs [-h|--help] <HTTP status: number>");
+  console.log(
+    "usage: hs [-h|--help] [-s|--show-status-codes] <HTTP status: number>",
+  );
   Deno.exit(exitCode);
+}
+
+function showStatusCodes(): void {
+  const codes = { "1": [], "2": [], "3": [], "4": [], "5": [] };
+  for (const statfile of Deno.readDirSync("./codes/")) {
+    codes[statfile.name[0]].push(statfile.name.replace(".txt", ""));
+  }
+  const table = Object.values(codes).map((arr) => arr.join(" ")).join("\n")
+  console.log(green(table));
 }
 
 function parseUserArg(): string {
   if (Deno.args[0] === "-h" || Deno.args[0] === "--help") {
     helpAndExit(0);
+  } else if (Deno.args[0] === "-s" || Deno.args[0] === "--show-status-codes") {
+    showStatusCodes();
+    Deno.exit(0);
   }
   if (!parseInt(Deno.args[0])) {
     helpAndExit(1);
