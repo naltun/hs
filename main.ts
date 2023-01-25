@@ -6,6 +6,8 @@ interface Status {
   text: string;
 }
 
+const codeFilesPath = `${Deno.env.get("HOME")}/.config/hs/codes`;
+
 function helpAndExit(exitCode: number): void {
   console.log(
     "usage: hs [-h|--help] [-s|--show-status-codes] <HTTP status: number>",
@@ -15,7 +17,7 @@ function helpAndExit(exitCode: number): void {
 
 function showStatusCodes(): void {
   const codes = { "1": [], "2": [], "3": [], "4": [], "5": [] };
-  for (const statfile of Deno.readDirSync(`${Deno.env.get("HOME")}/.config/hs/codes/`)) {
+  for (const statfile of Deno.readDirSync(codeFilesPath)) {
     codes[statfile.name[0]].push(statfile.name.replace(".txt", ""));
   }
   const table = Object.values(codes).map((c) => c.join(" ")).join("\n");
@@ -67,7 +69,7 @@ function parseStatfileText(statfileText: string): Status {
 
 function printStatus(stat: string): void {
   const statfileText = new TextDecoder("UTF-8").decode(
-    Deno.readFileSync(`${Deno.env.get("HOME")}/.config/hs/codes/${stat}.txt`),
+    Deno.readFileSync(`${codeFilesPath}/${stat}.txt`),
   );
   const parsedStatus = parseStatfileText(statfileText);
   for (const attr of Object.keys(parsedStatus)) {
