@@ -15,7 +15,7 @@ function helpAndExit(exitCode: number): void {
 
 function showStatusCodes(): void {
   const codes = { "1": [], "2": [], "3": [], "4": [], "5": [] };
-  for (const statfile of Deno.readDirSync(`${Deno.cwd()}/codes/`)) {
+  for (const statfile of Deno.readDirSync(`${Deno.env.get("HOME")}/.config/hs/codes/`)) {
     codes[statfile.name[0]].push(statfile.name.replace(".txt", ""));
   }
   const table = Object.values(codes).map((c) => c.join(" ")).join("\n");
@@ -67,7 +67,7 @@ function parseStatfileText(statfileText: string): Status {
 
 function printStatus(stat: string): void {
   const statfileText = new TextDecoder("UTF-8").decode(
-    Deno.readFileSync(`${Deno.cwd()}/codes/${stat}.txt`),
+    Deno.readFileSync(`${Deno.env.get("HOME")}/.config/hs/codes/${stat}.txt`),
   );
   const parsedStatus = parseStatfileText(statfileText);
   for (const attr of Object.keys(parsedStatus)) {
