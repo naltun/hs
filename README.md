@@ -4,15 +4,31 @@ Print HTTP status details
 
 <img src="./example.png" alt="Running hs with HTTP status 201" />
 
-## Usage
+## How to use
 
-From within the project root:
-
+Pass in an HTTP status code:
 ```sh
-deno run --allow-read main.ts [-h|--help] <HTTP status: number>
+hs 200
 ```
 
-NOTE: deno.land/x/ hosting coming soon...
+Use `-s|--show-status-codes` to see available HTTP status codes:
+```sh
+hs --show-status-codes
+```
+
+Use `-h|--help` to see the help message:
+```sh
+hs --help
+```
+
+## How to install
+
+```sh
+git clone https://github.com/naltun/hs.git && cd hs
+mkdir --parents $HOME/.config/hs
+mv codes/ $HOME/.config/hs/
+deno install --allow-env --allow-read main.ts
+```
 
 ## License
 
