@@ -11,7 +11,7 @@ function helpAndExit(exitCode: number): void {
   Deno.exit(exitCode);
 }
 
-function parseUserArg(): number {
+function parseUserArg(): string {
   if (Deno.args[0] === "-h" || Deno.args[0] === "--help") {
     helpAndExit(0);
   }
