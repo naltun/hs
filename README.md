@@ -7,16 +7,19 @@ Print HTTP status details
 ## How to use
 
 Pass in an HTTP status code:
+
 ```sh
 hs 200
 ```
 
 Use `-s|--show-status-codes` to see available HTTP status codes:
+
 ```sh
 hs --show-status-codes
 ```
 
 Use `-h|--help` to see the help message:
+
 ```sh
 hs --help
 ```
