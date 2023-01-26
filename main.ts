@@ -75,7 +75,7 @@ function printStatus(stat: string): void {
     for (const attr of Object.keys(parsedStatus)) {
       console.log(bold(attr) + ": " + green(parsedStatus[attr]));
     }
-  } finally {
+  } catch (e) {
     console.log(
       `${bold(stat)} is not a valid HTTP status code, consider running 'hs -s'`,
     );
