@@ -68,12 +68,19 @@ function parseStatfileText(statfileText: string): Status {
 }
 
 function printStatus(stat: string): void {
-  const statfileText = new TextDecoder("UTF-8").decode(
-    Deno.readFileSync(`${codeFilesPath}/${stat}.txt`),
-  );
-  const parsedStatus = parseStatfileText(statfileText);
-  for (const attr of Object.keys(parsedStatus)) {
-    console.log(bold(attr) + ": " + green(parsedStatus[attr]));
+  try {
+    const statfileText = new TextDecoder("UTF-8").decode(
+      Deno.readFileSync(`${codeFilesPath}/${stat}.txt`),
+    );
+    const parsedStatus = parseStatfileText(statfileText);
+    for (const attr of Object.keys(parsedStatus)) {
+      console.log(bold(attr) + ": " + green(parsedStatus[attr]));
+    }
+  } finally {
+    console.log(
+      `${bold(stat)} is not a valid HTTP status code, consider running 'hs -s'`,
+    );
+    Deno.exit(2);
   }
 }
 
