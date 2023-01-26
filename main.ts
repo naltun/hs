@@ -20,7 +20,7 @@ function showStatusCodes(): void {
   for (const statfile of Deno.readDirSync(codeFilesPath)) {
     codes[statfile.name[0]].push(statfile.name.replace(".txt", ""));
   }
-  const table = Object.values(codes).map((c) => c.join(" ")).join("\n");
+  const table = Object.values(codes).map((c) => c.sort().join(" ")).join("\n");
   console.log(bold("HTTP Status Codes") + "\n");
   console.log(
     green(
