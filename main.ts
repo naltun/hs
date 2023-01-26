@@ -36,8 +36,7 @@ function parseUserArg(): string {
   } else if (Deno.args[0] === "-s" || Deno.args[0] === "--show-status-codes") {
     showStatusCodes();
     Deno.exit(0);
-  }
-  if (!parseInt(Deno.args[0])) {
+  } else if (!parseInt(Deno.args[0])) {
     helpAndExit(1);
   }
   return Deno.args[0];
